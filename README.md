@@ -17,7 +17,7 @@ This chart will do the following:
 First, add the repo:
 
 ```console
-helm repo add twuni https://helm.twun.io
+helm repo add twuni https://twuni.github.io/docker-registry.helm
 ```
 
 To install the chart, use the following:
