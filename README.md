@@ -12,12 +12,27 @@ This chart will do the following:
 
 * Implement a Docker registry deployment
 
+## ⚠️ Repo Migration and Deprecation Notice
+
+The following change only affects attempts to install or update the chart via the https://helm.twun.io repo.
+
+The https://helm.twun.io repo has been migrated to https://twuni.github.io/docker-registry.helm.
+
+To update your configuration, remove and re-add the repo with the new URL:
+
+```console
+helm repo remove twuni
+helm repo add twuni https://twuni.github.io/docker-registry.helm
+```
+
+The deprecated repo URL, https://helm.twun.io, may become unavailable as early as **October 16, 2025**.
+
 ## Installing the Chart
 
 First, add the repo:
 
 ```console
-helm repo add twuni https://helm.twun.io
+helm repo add twuni https://twuni.github.io/docker-registry.helm
 ```
 
 To install the chart, use the following:
