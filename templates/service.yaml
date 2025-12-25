@@ -1,4 +1,4 @@
-{{- range $proxyName, $proxyValue := .Values.proxies }}
+{{ range $proxyName, $proxyValue := .Values.proxies }}
 {{- if $proxyValue.enabled }}
 {{- $proxyMergedValues  := (deepCopy $.Values.default | mergeOverwrite $proxyValue) -}}
 {{- $proxyParsedName    := (include "docker-registry.registryname" $proxyName) -}}
@@ -59,4 +59,4 @@ spec:
     registry: {{ template "docker-registry.fullname" $ }}-{{ $proxyParsedName }}
     {{- include "docker-registry.selectorLabels" $ | nindent 4 }}
 {{- end }}
-{{- end }}
+{{ end }}

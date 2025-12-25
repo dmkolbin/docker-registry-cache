@@ -1,7 +1,7 @@
-{{- range $proxyName, $proxyValue := .Values.proxies }}
+{{ range $proxyName, $proxyValue := .Values.proxies }}
 {{- $proxyMergedValues  := (deepCopy $.Values.default | mergeOverwrite $proxyValue) -}}
 {{- $proxyParsedName    := (include "docker-registry.registryname" $proxyName) -}}
-{{- if and $proxyValue.enabled $proxyMergedValues.autoscaling.enabled }}
+{{- if and $proxyValue.enabled $proxyMergedValues.autoscaling $proxyMergedValues.autoscaling.enabled }}
 
 ---
 apiVersion: autoscaling/v2
@@ -41,4 +41,4 @@ spec:
     {{- toYaml . | nindent 4 }}
 {{- end }}
 {{- end }}
-{{- end }}
+{{ end }}

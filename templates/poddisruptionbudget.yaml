@@ -1,4 +1,4 @@
-{{- range $proxyName, $proxyValue := .Values.proxies }}
+{{ range $proxyName, $proxyValue := .Values.proxies }}
 {{- $proxyMergedValues  := (deepCopy $.Values.default | mergeOverwrite $proxyValue) -}}
 {{- $proxyParsedName    := (include "docker-registry.registryname" $proxyName) -}}
 {{- if and $proxyValue.enabled $proxyMergedValues.podDisruptionBudget }}
@@ -23,4 +23,4 @@ spec:
       {{- include "docker-registry.selectorLabels" $ | nindent 6 }}
 {{ toYaml $proxyMergedValues.podDisruptionBudget | indent 2 }}
 {{- end }}
-{{- end }}
+{{ end }}

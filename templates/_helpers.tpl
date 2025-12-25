@@ -30,7 +30,7 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{- define "docker-registry.registryname" -}}
-{{- regexReplaceAll "[^a-zA-Z]+" . "-" -}}
+{{- regexReplaceAll "[^a-zA-Z0-9]+" . "-" -}}
 {{- end -}}
 
 {{- define "docker-registry.registryvalues" -}}

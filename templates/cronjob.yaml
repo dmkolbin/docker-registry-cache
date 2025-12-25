@@ -1,5 +1,5 @@
-{{- range $proxyName, $proxyValue := .Values.proxies }}
-{{- if and $proxyValue.enabled $proxyValue.garbageCollect.enabled }}
+{{ range $proxyName, $proxyValue := .Values.proxies }}
+{{- if and $proxyValue.enabled $proxyValue.garbageCollect $proxyValue.garbageCollect.enabled }}
 {{- $proxyMergedValues  := (deepCopy $.Values.default | mergeOverwrite $proxyValue) -}}
 {{- $proxyParsedName    := (include "docker-registry.registryname" $proxyName) -}}
 {{- $storageType        := (include "docker-registry.storage-type" $proxyMergedValues.config.storage.type) -}}
@@ -121,4 +121,4 @@ spec:
             {{ toYaml . | nindent 12 }}
             {{- end }}
 {{- end }}
-{{- end }}
+{{ end }}
