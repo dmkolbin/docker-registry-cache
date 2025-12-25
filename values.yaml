@@ -544,7 +544,7 @@ proxies:
 
       http:
         # addr: localhost:5000
-        # prefix: /my/nested/registry/
+        # prefix: /my/nested/registry/ # string must end with "/"
         # host: https://myregistryaddress.org:5000
         # secret: asecretforlocaldevelopment
         # relativeurls: false

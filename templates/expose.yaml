@@ -76,10 +76,12 @@ spec:
     {{- if $proxyValue.enabled }}
     {{- $proxyMergedValues  := (deepCopy $.Values.default | mergeOverwrite $proxyValue) -}}
     {{- $proxyParsedName    := (include "docker-registry.registryname" $proxyName) -}}
-    - match:
+    {{- $httpServicePrefix  := printf "%s%s/" $expose.repositoryPrefix $proxyParsedName -}}
+
+    - name: {{ $proxyParsedName }}
+      match:
         - uri:
-            prefix: {{ $expose.repositoryPrefix }}{{ $proxyParsedName }}
-      name: {{ $proxyParsedName }}
+            prefix: {{ dig "config" "http" "prefix" $httpServicePrefix $proxyMergedValues }}
       route:
         - destination:
             host: {{ template "docker-registry.fullname" $ }}-{{ $proxyParsedName }}
@@ -126,7 +128,9 @@ spec:
         {{- if $proxyValue.enabled }}
         {{- $proxyMergedValues  := (deepCopy $.Values.default | mergeOverwrite $proxyValue) -}}
         {{- $proxyParsedName    := (include "docker-registry.registryname" $proxyName) -}}
-          - path: {{ $expose.repositoryPrefix }}{{ $proxyParsedName }}
+        {{- $httpServicePrefix  := printf "%s%s/" $expose.repositoryPrefix $proxyParsedName -}}
+
+          - path: {{ dig "config" "http" "prefix" $httpServicePrefix $proxyMergedValues }}
             pathType: Prefix
             backend:
               service:
